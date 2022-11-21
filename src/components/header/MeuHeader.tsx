@@ -2,8 +2,16 @@ import React from 'react';
 import { AppBar, Box, Toolbar, Typography, Button, IconButton } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router-dom';
 
 export const MeuHeader = () => {
+  const navigate = useNavigate();
+  function Logout(){
+    localStorage.removeItem('usuarioLogado')
+    setTimeout(() => {
+      navigate('/')
+    }, 500)
+  }
     return (
         <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -13,10 +21,10 @@ export const MeuHeader = () => {
             <AddIcon />
             </Fab>
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div" sx={{ fontSize:'clamp(1rem, 2vw, 1.5rem)', flexGrow: 1 }}>
             Adicione seu recado...
           </Typography>
-          <Button color="inherit">Logout</Button>
+          <Button color="inherit" onClick={Logout} sx={{ fontSize:'clamp(0.75rem, 2vw, 1.10rem)'}}>Logout</Button>
         </Toolbar>
       </AppBar>
     </Box>
