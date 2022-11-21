@@ -17,7 +17,7 @@ backgroundSize: 'cover',
 backgroundPosition: 'center',
 }));
 
-const PaperBox = styled(Paper) (() => ({
+export const PaperBox = styled(Paper) (() => ({
     display: 'flex',
     flexDirection:  'column',
     justifyContent: 'center',
@@ -31,11 +31,11 @@ export const Login = () => {
     const [password, setPassword] = useState('');
 
     const allUsers = JSON.parse(localStorage.getItem('usuarios') || '[]')
-    const existeEmail = allUsers.some((valor: User) => valor.email === email && valor.password === password)
 
     const navigate = useNavigate();
 
     function Logar() {
+        const existeEmail = allUsers.findIndex((valor: User) => valor.email === email && valor.password === password)
         if(!email) {
             alert('Por favor digite seu E-mail.')
             return
@@ -45,15 +45,13 @@ export const Login = () => {
             return
         }
 
-        if(!existeEmail) {
+        if(existeEmail < 0) {
             alert('Verifique os dados ou cadastre-se.')
             return
         }
 
-        const usuarioLogado: User = {
-            email: allUsers[existeEmail].email, 
-            password: allUsers[existeEmail].password, 
-            messages: []
+        const usuarioLogado: Partial<User> = {
+            id: allUsers[existeEmail].id,
         } 
 
         localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado))

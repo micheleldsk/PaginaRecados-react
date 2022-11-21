@@ -6,6 +6,7 @@ import { MeuInput } from '../../components/input/Meuinput';
 import { MeuHeader } from '../../components/header/MeuHeader';
 import styled from '@emotion/styled';
 import MeuRecado from '../../components/meuRecado/MeuRecado';
+import { MeuModal } from '../../components/modal/MeuModal';
 
 const ContainerRecadosPage = styled(Grid) (() => ({
 display: 'flex',
@@ -18,11 +19,14 @@ backgroundPosition: 'center',
 
 export const Recados = () => {
     return (
+        <>
         <ContainerRecadosPage container xs={12}>
             <MeuHeader />
             <Grid item xs={12} md={12}>
                 <MeuRecado />
             </Grid>
         </ContainerRecadosPage>
+        <MeuModal open={false} type='' />
+        </>  
     );
 };

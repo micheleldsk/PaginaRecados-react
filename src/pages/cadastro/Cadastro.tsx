@@ -5,6 +5,7 @@ import { MeuButton } from '../../components/button/MeuButton';
 import { MeuInput } from '../../components/input/Meuinput';
 import styled from '@emotion/styled';
 import User from '../../components/global-types/TUser';
+import { v4 } from 'uuid';
 
 const ContainerCadastro = styled(Grid) (() => ({
 display: 'flex',
@@ -54,9 +55,9 @@ export const Cadastro = () => {
         }
 
         const newUser: User = {
+            id: v4(),
             email: email, 
-            password: password, 
-            messages: []
+            password: password,
         }
 
         allUsers.push(newUser)
