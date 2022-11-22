@@ -1,10 +1,13 @@
 import { Grid, Paper, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MeuButton } from '../../components/button/MeuButton';
 import { MeuInput } from '../../components/input/Meuinput';
 import styled from '@emotion/styled';
 import User from '../../components/global-types/TUser';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import { MeuAlert, MeuAlertProps } from '../../components/alert/MeuAlert';
 
 const ContainerLogin = styled(Grid) (() => ({
 display: 'flex',
@@ -29,6 +32,7 @@ export const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [alert, setAlert] = useState<MeuAlertProps>({texto: ''})
 
     const allUsers = JSON.parse(localStorage.getItem('usuarios') || '[]')
 
@@ -36,19 +40,32 @@ export const Login = () => {
 
     function Logar() {
         const existeEmail = allUsers.findIndex((valor: User) => valor.email === email && valor.password === password)
-        if(!email) {
-            alert('Por favor digite seu E-mail.')
-            return
-        }
-        if(!password) {
-            alert('Por favor digite sua senha.')
-            return
-        }
 
-        if(existeEmail < 0) {
-            alert('Verifique os dados ou cadastre-se.')
-            return
-        }
+            if(!email) {
+                setAlert ({texto:'Por favor digite seu E-mail.', severity:'warning'})
+                setTimeout(() => {
+                    setAlert({texto:''})
+                }, 2000);
+                return
+                // alert('Por favor digite seu E-mail.')
+            }
+            if(!password) {
+                setAlert ({texto:'Por favor digite sua senha.', severity:'warning'})
+                setTimeout(() => {
+                    setAlert({texto:''})
+                }, 2000);
+                return
+                // alert('Por favor digite sua senha.')
+            }
+    
+            if(existeEmail < 0) {
+                setAlert ({texto:'Verifique os dados ou cadastre-se.', severity:'error'})
+                setTimeout(() => {
+                    setAlert({texto:''})
+                }, 2000);
+                return
+                // alert('Verifique os dados ou cadastre-se.')   
+            }
 
         const usuarioLogado: Partial<User> = {
             id: allUsers[existeEmail].id,
@@ -59,10 +76,12 @@ export const Login = () => {
     }
 
     return (
+        <>
+        {alert.texto && (<MeuAlert texto={alert.texto} severity={alert.severity}/>)}
         <ContainerLogin container xs={12}>
             <Grid item xs={6} md={3} sx={{mr: 13}}>
                 <PaperBox elevation={24}>
-                    <Typography variant='h4' align='center'>Faça seu Login</Typography>
+                    <Typography variant='h4' align='center' sx={{ fontSize:'clamp(1.5rem, 2vw, 2rem)'}}>Faça seu Login</Typography>
                     
                     <MeuInput variant='outlined' label='E-mail' type='email' placeholder='E-mail'
                             color='primary' size='medium' value={email} onChange={(e) => setEmail(e.target.value)}/>
@@ -75,5 +94,7 @@ export const Login = () => {
                 </PaperBox>
             </Grid>
         </ContainerLogin>
+        </>
+
     );
 };

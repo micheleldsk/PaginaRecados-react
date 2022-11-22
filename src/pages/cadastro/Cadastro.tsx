@@ -6,6 +6,7 @@ import { MeuInput } from '../../components/input/Meuinput';
 import styled from '@emotion/styled';
 import User from '../../components/global-types/TUser';
 import { v4 } from 'uuid';
+import { MeuAlert, MeuAlertProps } from '../../components/alert/MeuAlert';
 
 const ContainerCadastro = styled(Grid) (() => ({
 display: 'flex',
@@ -29,6 +30,7 @@ export const Cadastro = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
+    const [alert, setAlert] = useState<MeuAlertProps>({texto: ''})
 
     const allUsers = JSON.parse(localStorage.getItem('usuarios') || '[]')
     const existeEmail = allUsers.some((valor: User) => valor.email === email)
@@ -37,21 +39,33 @@ export const Cadastro = () => {
 
     function Cadastrar() {
         if(!email) {
-            alert('Por favor digite seu E-mail.')
-            return
+            setAlert ({texto:'Por favor digite seu E-mail.', severity:'info'})
+                setTimeout(() => {
+                    setAlert({texto:''})
+                }, 2000);
+                return
         }
         if(!password) {
-            alert('Por favor digite sua senha.')
-            return
+            setAlert ({texto:'Por favor digite sua senha.', severity:'info'})
+                setTimeout(() => {
+                    setAlert({texto:''})
+                }, 2000);
+                return
         }
         if (password !== rePassword) {
-            alert("As senhas não conferem.")
-            return
+            setAlert ({texto:'As senhas não conferem.', severity:'warning'})
+                setTimeout(() => {
+                    setAlert({texto:''})
+                }, 2000);
+                return
         }
 
         if(existeEmail){
-            alert('Email já cadastrado.')
-            return
+            setAlert ({texto:'Email já cadastrado.', severity:'error'})
+                setTimeout(() => {
+                    setAlert({texto:''})
+                }, 2000);
+                return
         }
 
         const newUser: User = {
@@ -62,15 +76,22 @@ export const Cadastro = () => {
 
         allUsers.push(newUser)
         localStorage.setItem('usuarios', JSON.stringify(allUsers))
-        alert('Conta cadastrada com SUCESSO!')
-        return navigate('/')
+        setAlert ({texto:'Conta cadastrada com SUCESSO!', severity:'success'})
+                setTimeout(() => {
+                    setAlert({texto:''})
+                }, 2000);
+                setTimeout(() => {
+                    return navigate('/')
+                }, 2100);      
     }
 
     return (
+        <>
+        {alert.texto && (<MeuAlert texto={alert.texto} severity={alert.severity}/>)}
         <ContainerCadastro container xs={12}>
             <Grid item xs={6} md={3} sx={{ml: 13}}>
                 <PaperBox elevation={24}>
-                    <Typography variant='h4' align='center'>Cadastre-se</Typography>
+                    <Typography variant='h4' align='center' sx={{ fontSize:'clamp(1.5rem, 2vw, 2rem)'}}>Cadastre-se</Typography>
                     
                     <MeuInput variant='outlined' label='E-mail' type='email' placeholder='E-mail'
                             color='primary' size='medium' value={email} onChange={(e) => setEmail(e.target.value)}/>
@@ -85,5 +106,6 @@ export const Cadastro = () => {
                 </PaperBox>
             </Grid>
         </ContainerCadastro>
+        </>  
     );
 };
