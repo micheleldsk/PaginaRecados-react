@@ -25,7 +25,7 @@ const msgSlice = createSlice({
     reducers: {
         resetState: (state) => initialState,
         addMsg: (state, action) => {
-            state.msgList.push(action.payload)
+            state.msgList = [...state.msgList,action.payload]
         },
         editMsg: (state, action) => {
             const {id, titulo, mensagem, userId } = action.payload
@@ -57,5 +57,5 @@ const msgSlice = createSlice({
     extraReducers: {}
 });
 
-export const { resetState, addMsg, setModalMsg, resetModalMsg, setSelectId, resetSelectId } = msgSlice.actions
+export const { resetState, resetModalMsg, setModalMsg, setSelectId, resetSelectId, deleteMsg, editMsg, addMsg } = msgSlice.actions
 export default msgSlice.reducer
