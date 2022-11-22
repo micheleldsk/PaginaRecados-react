@@ -11,6 +11,6 @@ interface MeuButtonProps {
 
 export const MeuButton = ({ texto, color, size, variant, onClick }: MeuButtonProps) => {
     return (
-        <Button variant={variant} color={color} size={size} onClick={onClick} sx={{ m: 1 }}>{texto}</Button>
+        <Button variant={variant} color={color} size={size} onClick={onClick} sx={{ fontSize:'clamp(0.75rem, 2vw, 1rem)', m: 1 }}>{texto}</Button>
     );
 };

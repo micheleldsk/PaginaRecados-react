@@ -17,7 +17,7 @@ export const MeuInput = ({ label, type, value, placeholder, color, size, variant
         <TextField variant={variant} label={label}
             type={type} placeholder={placeholder}
             color={color} size={size}
-            value={value} onChange={onChange} sx={{ m: 2 }}
+            value={value} onChange={onChange} sx={{ fontSize:'clamp(0.5rem, 2vw, 0.75rem)', m: 2 }}
         />
     );
 };
