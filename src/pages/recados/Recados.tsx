@@ -7,6 +7,8 @@ import { MeuHeader } from '../../components/header/MeuHeader';
 import styled from '@emotion/styled';
 import MeuRecado from '../../components/meuRecado/MeuRecado';
 import { MeuModal } from '../../components/modal/MeuModal';
+import { useSelector } from 'react-redux';
+import { msgSelectAll } from '../../store/msgSlice';
 
 const ContainerRecadosPage = styled(Grid) (() => ({
 display: 'flex',
@@ -18,6 +20,7 @@ backgroundPosition: 'center',
 }));
 
 export const Recados = () => {
+    const {showModalMsg} = useSelector(msgSelectAll)
     return (
         <>
         <ContainerRecadosPage container xs={12}>
@@ -26,7 +29,7 @@ export const Recados = () => {
                 <MeuRecado />
             </Grid>
         </ContainerRecadosPage>
-        <MeuModal open={false} type='' />
+        <MeuModal open={showModalMsg.open} type={showModalMsg.type} />
         </>  
     );
 };
