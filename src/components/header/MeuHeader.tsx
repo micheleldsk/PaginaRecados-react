@@ -3,9 +3,14 @@ import { AppBar, Box, Toolbar, Typography, Button, IconButton } from '@mui/mater
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setModalMsg } from '../../store/msgSlice';
 
 export const MeuHeader = () => {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch()
+
   function Logout(){
     localStorage.removeItem('usuarioLogado')
     setTimeout(() => {
@@ -16,7 +21,7 @@ export const MeuHeader = () => {
         <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton>
+          <IconButton onClick={() => dispatch(setModalMsg({open: true, type: 'criar'}))}>
             <Fab color="primary" aria-label="add" size="small">
             <AddIcon />
             </Fab>
