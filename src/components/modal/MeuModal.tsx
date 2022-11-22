@@ -2,38 +2,94 @@ import { Modal, Typography, Paper } from '@mui/material'
 import { MeuButton } from '../button/MeuButton';
 import { MeuInput } from '../input/Meuinput';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMsg, deleteMsg, msgSelectAll, resetModalMsg, resetSelectId } from '../../store/msgSlice';
+import { MeuAlert, MeuAlertProps } from '../alert/MeuAlert';
+import Message from '../global-types/TMessage';
+import { v4 } from 'uuid';
+import { useRevalidator } from 'react-router-dom';
 
 type ModalProps = {
     open: boolean,
     type: string,
     setOpen?: any,
+    setAlert?: React.Dispatch<React.SetStateAction<MeuAlertProps>>
 };
 
 export const MeuModal = (props: ModalProps)  => {
+    const dispatch = useDispatch()
+    const msgRedux = useSelector(msgSelectAll)
+
     const [titulo, setTitulo] = useState('')
     const [mensagem, setMensagem] = useState('')
+    const [alert, setAlert] = useState<MeuAlertProps>({texto: ''})
+    
+    const userId = JSON.parse(localStorage.getItem('usuarioLogado')!)
+
     function handleClose () {
-        console.log('feshow!!!');   
+        dispatch(resetModalMsg())   
     }
+
+    function saveMsg () {
+        if(!titulo || !mensagem) {
+            setAlert ({texto:'Os campos devem ser preenchidos!', severity:'error'})
+                setTimeout(() => {
+                    setAlert({texto:''})
+                }, 2000);
+                return
+        }
+        const newMsg: Message = {
+            id: v4(),
+            titulo,
+            mensagem,
+            userId: userId.id,
+        }
+        
+        setAlert ({texto:'Mensagem cadastrada com SUCESSO!', severity:'success'})
+                setTimeout(() => {
+                    setAlert({texto:''})
+                    setTitulo('')
+                    setMensagem('')
+                }, 2000);
+                setTimeout(() => {
+                    dispatch(addMsg(newMsg))
+                    handleClose()
+                }, 2100);
+    }
+
+    function handleDeleteMsg () {
+        setAlert ({texto:'Mensagem EXCLUÍDA', severity:'info'})
+                setTimeout(() => {
+                    setAlert({texto:''})
+                }, 2000);
+                setTimeout(() => {
+                    dispatch(deleteMsg(msgRedux.selectId))
+                    handleClose()
+                    dispatch(resetSelectId())
+                }, 2100);
+    }
+
     return (
+        <>
+        {alert.texto && (<MeuAlert texto={alert.texto} severity={alert.severity}/>)}    
         <Modal open={props.open} onClose={handleClose} sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
         <Paper elevation={24} sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '40Vw', padding: '20px 0'}}>
         {props.type === 'criar' && (
             <>
-            <Typography variant='h4' align='center'>Nova Mensagem</Typography>
+            <Typography sx={{ fontSize:'clamp(1.5rem, 2vw, 2rem)'}} align='center'>Nova Mensagem</Typography>
                     
             <MeuInput variant='outlined' label='Título' type='text' placeholder='Título'
                       color='primary' size='medium' value={titulo} onChange={(e) => setTitulo(e.target.value)}/>
             <MeuInput variant='outlined' label='Mensagem' type='text' placeholder='Mensagem'
                       color='primary' size='medium' value={mensagem} onChange={(e) => setMensagem(e.target.value)}/>
                     
-            <MeuButton variant='contained' color='success' size='medium' texto='SALVAR'/>
-            <MeuButton variant='contained' color='error' size='medium' texto='CANCELAR'/>               
+            <MeuButton variant='contained' color='success' size='medium' texto='SALVAR' onClick={saveMsg}/>
+            <MeuButton variant='contained' color='error' size='medium' texto='CANCELAR' onClick={handleClose}/>               
             </>
         )}
         {props.type === 'editar' && (
             <>
-            <Typography variant='h4' align='center'>Editando Mensagem</Typography>
+            <Typography sx={{ fontSize:'clamp(1.5rem, 2vw, 2rem)'}} align='center'>Editando Mensagem</Typography>
                     
             <MeuInput variant='outlined' label='Título' type='text' placeholder='Título'
                       color='primary' size='medium' value={titulo} onChange={(e) => setTitulo(e.target.value)}/>
@@ -41,18 +97,19 @@ export const MeuModal = (props: ModalProps)  => {
                       color='primary' size='medium' value={mensagem} onChange={(e) => setMensagem(e.target.value)}/>
                     
             <MeuButton variant='contained' color='success' size='medium' texto='SALVAR'/>
-            <MeuButton variant='contained' color='error' size='medium' texto='CANCELAR'/>               
+            <MeuButton variant='contained' color='error' size='medium' texto='CANCELAR' onClick={handleClose}/>               
             </>
         )}
         {props.type === 'apagar' && (
             <>
-            <Typography variant='h4' align='center'>ALERTA: A Mensagem será excluída!</Typography>  
-            <MeuButton variant='contained' color='success' size='medium' texto='CONFIRMAR'/>
-            <MeuButton variant='contained' color='error' size='medium' texto='CANCELAR'/>            
+            <Typography sx={{ fontSize:'clamp(1.5rem, 2vw, 2rem)'}} align='center'>ALERTA: A Mensagem será excluída!</Typography>  
+            <MeuButton variant='contained' color='success' size='medium' texto='CONFIRMAR' onClick={handleDeleteMsg}/>
+            <MeuButton variant='contained' color='error' size='medium' texto='CANCELAR' onClick={handleClose}/>            
             </>
         )}
-
         </Paper>
         </Modal>
+        </>
+        
     );
 };
