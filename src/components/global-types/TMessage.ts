@@ -1,6 +1,6 @@
 
 type Message = {
-    id: number,
+    id: string,
     titulo: string,
     mensagem: string,
     userId: string,

@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Message from "../components/global-types/TMessage";
+import { StateApp } from "./rootReducer";
 
 export type MsgState = {
+    selectId: string,
     msgList: Array<Message>,
     showModalMsg: {
         open: boolean,
@@ -10,9 +12,12 @@ export type MsgState = {
 };
 
 const initialState: MsgState = {
+    selectId: '',
     msgList: [],
     showModalMsg: {open: false, type: ''}
 };
+
+export const msgSelectAll = (state: StateApp) => state.msgSlice
 
 const msgSlice = createSlice({
     name: 'msg',
@@ -42,9 +47,15 @@ const msgSlice = createSlice({
         resetModalMsg: (state) => {
             state.showModalMsg = initialState.showModalMsg
         },
+        setSelectId: (state, action) => {
+            state.selectId = action.payload
+        },
+        resetSelectId: (state) => {
+            state.selectId = initialState.selectId
+        },
     },
     extraReducers: {}
 });
 
-export const { resetState, addMsg, setModalMsg, resetModalMsg } = msgSlice.actions
+export const { resetState, addMsg, setModalMsg, resetModalMsg, setSelectId, resetSelectId } = msgSlice.actions
 export default msgSlice.reducer
