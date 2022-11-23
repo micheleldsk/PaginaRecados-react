@@ -10,14 +10,22 @@ interface MeuInputProps {
     size: 'medium' | 'small',
     variant: 'filled' | 'outlined' | 'standard',
     onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
+    onClick?: React.MouseEventHandler<HTMLDivElement>
 }
 
-export const MeuInput = ({ label, type, value, placeholder, color, size, variant, onChange }: MeuInputProps) => {
+export const MeuInput = ({ label, type, value, placeholder, color, size, variant, onChange, onClick }: MeuInputProps) => {
     return (
-        <TextField variant={variant} label={label}
-            type={type} placeholder={placeholder}
-            color={color} size={size}
-            value={value} onChange={onChange} sx={{ fontSize:'clamp(0.5rem, 2vw, 0.75rem)', m: 2 }}
+        <TextField 
+            variant={variant} 
+            label={label}
+            type={type} 
+            placeholder={placeholder}
+            color={color} 
+            size={size}
+            value={value} 
+            onChange={onChange}
+            onClick={onClick}  
+            sx={{ fontSize:'clamp(0.5rem, 2vw, 0.75rem)', m: 2 }}
         />
     );
 };
