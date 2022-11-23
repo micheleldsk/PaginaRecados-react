@@ -28,12 +28,12 @@ const msgSlice = createSlice({
             state.msgList = [...state.msgList,action.payload]
         },
         editMsg: (state, action) => {
-            const {id, titulo, mensagem, userId } = action.payload
+            const {id, titulo, mensagem } = action.payload
             const findMsg = state.msgList.findIndex((mensagem: Message) => mensagem.id === id)!
             state.msgList[findMsg].id = id
             state.msgList[findMsg].titulo = titulo
             state.msgList[findMsg].mensagem = mensagem
-            state.msgList[findMsg].userId = userId
+            state.msgList[findMsg].userId = state.msgList[findMsg].userId
             state.msgList.splice(findMsg, 1, state.msgList[findMsg])
         },
         deleteMsg: (state, action) => {
