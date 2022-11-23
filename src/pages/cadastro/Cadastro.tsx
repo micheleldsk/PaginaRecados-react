@@ -2,7 +2,7 @@ import { Grid, Paper, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MeuButton } from '../../components/button/MeuButton';
-import { MeuInput } from '../../components/input/Meuinput';
+import { MeuInput } from '../../components/input/MeuInput';
 import styled from '@emotion/styled';
 import User from '../../components/global-types/TUser';
 import { v4 } from 'uuid';

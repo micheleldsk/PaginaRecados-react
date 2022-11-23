@@ -2,7 +2,7 @@ import { Grid, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MeuButton } from '../../components/button/MeuButton';
-import { MeuInput } from '../../components/input/Meuinput';
+import { MeuInput } from '../../components/input/MeuInput';
 import { MeuHeader } from '../../components/header/MeuHeader';
 import styled from '@emotion/styled';
 import MeuRecado from '../../components/meuRecado/MeuRecado';
