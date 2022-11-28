@@ -13,7 +13,7 @@ interface MeuInputProps {
     onClick?: React.MouseEventHandler<HTMLDivElement>
 }
 
-export const MeuInput = ({ label, type, value, placeholder, color, size, variant, onChange, onClick }: MeuInputProps) => {
+const MeuInput = ({ label, type, value, placeholder, color, size, variant, onChange, onClick }: MeuInputProps) => {
     return (
         <TextField 
             variant={variant} 
@@ -29,3 +29,4 @@ export const MeuInput = ({ label, type, value, placeholder, color, size, variant
         />
     );
 };
+export default MeuInput;

@@ -1,6 +1,6 @@
 import { Modal, Typography, Paper } from '@mui/material'
 import { MeuButton } from '../button/MeuButton';
-import { MeuInput } from '../input/MeuInput';
+import MeuInput from '../input/MeuInput';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMsg, deleteMsg, editMsg, msgSelectAll, resetModalMsg, resetSelectId } from '../../store/msgSlice';
