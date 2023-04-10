@@ -1,4 +1,4 @@
-# PaginaRecados-react 🚀🚀🚀
+# PaginaRecados-react 🚀
 
 <h4> Página de recados desenvolvida como atividade avaliativa do módulo de Front End, agora em React. <br>
 <br>
