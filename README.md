@@ -1,6 +1,6 @@
 # PaginaRecados-react 🚀🚀🚀
 
-<h3> Página de recados desenvolvida como atividade avaliativa do módulo de Front End, agora em React. <br>
+<h4> Página de recados desenvolvida como atividade avaliativa do módulo de Front End, agora em React. <br>
 <br>
 Aplicação React com as seguintes orientações: <br>
 - Cadastro e Login de Usuário; <br>
@@ -9,8 +9,8 @@ Aplicação React com as seguintes orientações: <br>
 <br>
 Deploy da Aplicação: <br>
 - Criar o repositório no Github; <br>
-- Criar o APP na Vercel e vincular o repositório do Github da aplicação desenvolvida;</h3>
-<h4> Por Michele Ladanivski, Novembro/2022 </h4>
+- Criar o APP na Vercel e vincular o repositório do Github da aplicação desenvolvida;</h4>
+<h5> Por Michele Ladanivski, Novembro/2022 </h5>
 
 ![loginReact](https://user-images.githubusercontent.com/102632136/231018604-dfe76ed5-f591-434c-8db3-02f49a05ef96.jpg)
 <br>
