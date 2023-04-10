@@ -1,4 +1,3 @@
-import Message from "./TMessage";
 
 type User = {
     id: string,
