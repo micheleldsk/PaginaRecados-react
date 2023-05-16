@@ -10,7 +10,7 @@ Aplicação React com as seguintes orientações: <br>
 Deploy da Aplicação: <br>
 - Criar o repositório no Github; <br>
 - Criar o APP na Vercel e vincular o repositório do Github da aplicação desenvolvida;</h4>
-<h5> Por Michele Ladanivski, Novembro/2022 </h5>
+<h5> Por Michele Ladanivski (@micheleldsk), Novembro/2022 </h5>
 
 ![loginReact](https://user-images.githubusercontent.com/102632136/231018604-dfe76ed5-f591-434c-8db3-02f49a05ef96.jpg)
 <br>
